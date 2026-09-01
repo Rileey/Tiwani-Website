@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Segoe UI:ital,wght@0,400;0,500;0,600;1,400&display=swap"> -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap">
+<script src="https://unpkg.com/lucide@0.451.0/dist/umd/lucide.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; -webkit-font-smoothing: antialiased; }
+  img { max-width: 100%; height: auto; }
+  a { color: var(--color-accent-700); }
+  a:hover { color: var(--color-accent-600); }
+  .tw-wrap { max-width: 1180px; margin: 0 auto; padding: 0 40px; }
+  .tw-kick { font-family: var(--font-body); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; font-feature-settings: "tnum"; color: var(--color-accent-700); margin: 0 0 18px; }
+  .tw-sec { border-top: 1px solid var(--color-divider); padding: 104px 0; }
+  .tw-h2 { font-family: "Segoe UI", system-ui, sans-serif; font-weight: 400; font-size: 54px; line-height: 1.04; letter-spacing: -.02em; margin: 0 0 20px; }
+  .tw-lead { font-size: 17px; line-height: 1.62; color: color-mix(in srgb, var(--color-text) 72%, transparent); max-width: 46ch; }
+  .tw-just { text-align: justify; hyphens: auto; text-wrap: pretty; }
+  .tw-mat { border: 7px solid var(--color-surface); outline: 1px solid var(--color-divider); border-radius: 3px; background: var(--color-surface); }
+  .tw-mat img { display: block; width: 100%; }
+  figure { margin: 0; }
+  figure figcaption { font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 62%, transparent); }
+  .tw-phone { border-radius: 40px; padding: 9px; background: #1a1815; box-shadow: 0 22px 60px color-mix(in srgb, #2d2b2b 26%, transparent); max-width: 100%; }
+  .tw-phone > div { border-radius: 32px; overflow: hidden; background: #000; position: relative; }
+  .tw-phone img { display: block; width: 100%; }
+  .tw-step { padding: 6px 0 6px 26px; border-left: 1px solid var(--color-divider); transition: border-color .35s, opacity .35s; opacity: .42; }
+  .tw-step[data-on="1"] { opacity: 1; border-left: 1px solid var(--color-accent); }
+  .tw-theme-opt { display: flex; align-items: center; gap: 14px; width: 100%; text-align: left; background: transparent; border: 0; border-bottom: 1px solid var(--color-divider); padding: 15px 4px; cursor: pointer; font-family: var(--font-body); font-size: 15px; color: var(--color-text); transition: background .2s, color .2s; }
+  .tw-theme-opt:hover { background: color-mix(in srgb, var(--color-accent) 9%, transparent); }
+  .tw-theme-opt[data-on="1"] { color: var(--color-accent-700); }
+  .tw-sw { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--color-divider); position: relative; flex: none; }
+  .tw-sw span { position: absolute; inset: 9px; border-radius: 50%; }
+  .tw-chk { margin-left: auto; opacity: 0; transition: opacity .2s; color: var(--color-accent); }
+  .tw-theme-opt[data-on="1"] .tw-chk { opacity: 1; }
+  .tw-faq { border-bottom: 1px solid var(--color-divider); }
+  .tw-faq summary { cursor: pointer; list-style: none; padding: 22px 0; font-family: "Segoe UI", sans-serif; font-size: 24px; display: flex; justify-content: space-between; gap: 20px; align-items: baseline; }
+  .tw-faq summary::-webkit-details-marker { display: none; }
+  .tw-faq summary::after { content: "+"; color: rgb(195, 150, 53); font-size: 22px; }
+  .tw-faq[open] summary::after { content: "–"; }
+  .tw-faq p { max-width: 62ch; padding: 0 0 22px; color: color-mix(in srgb, var(--color-text) 70%, transparent); }
+  .tw-num { font-family: "Segoe UI", sans-serif; font-feature-settings: "tnum"; font-size: 13px; letter-spacing: .1em; color: var(--color-accent-700); }
+
+  .tw-hero-sec { padding: 92px 0 0; }
+  .tw-cta { border-top: 1px solid var(--color-divider); background: #10170f; color: #f0f3ef; padding: 110px 0; }
+  .tw-header-bar { display: flex; align-items: center; gap: 28px; min-height: 70px; position: relative; }
+  .tw-nav { display: flex; gap: 26px; margin-left: auto; font-size: 13.5px; }
+  .tw-menu-btn { display: none; width: 40px; height: 40px; flex: none; align-items: center; justify-content: center; border: 1px solid var(--color-divider); border-radius: 4px; background: transparent; color: var(--color-text); cursor: pointer; padding: 0; }
+  .tw-menu-btn svg { width: 20px; height: 20px; }
+  .tw-hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 64px; align-items: center; }
+  .tw-h1 { font-family: "Segoe UI", sans-serif; font-weight: 300; font-size: clamp(36px, 6.4vw, 78px); line-height: .98; letter-spacing: -.025em; margin: 0 0 26px; }
+  .tw-hero-stats { display: flex; gap: 34px; padding-top: 26px; border-top: 1px solid var(--color-divider); font-feature-settings: "tnum"; }
+  .tw-cols-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 44px; }
+  .tw-cols-3.tw-tight { gap: 34px; }
+  .tw-split { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; margin-top: 96px; }
+  .tw-split.tw-split-first { margin-top: 76px; }
+  .tw-h3-display { font-family: "Segoe UI", sans-serif; font-weight: 400; font-size: 40px; line-height: 1.06; margin: 12px 0 16px; }
+  .tw-phone-col { display: flex; justify-content: center; min-width: 0; }
+  .tw-media-first { order: -1; }
+  .tw-phones-pair { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; min-width: 0; }
+  .tw-compare { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--color-divider); border: 1px solid var(--color-divider); margin: 42px 0 60px; }
+  .tw-cols-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 26px; }
+  .tw-howto { display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: 90px; margin-top: 60px; align-items: stretch; }
+  .tw-sticky { position: sticky; top: 120px; }
+  .tw-themes { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 80px; align-items: start; }
+  .tw-audience { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--color-divider); margin-top: 50px; border: 1px solid var(--color-divider); }
+  .tw-faq-grid { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 70px; align-items: start; }
+  .tw-cta-h2 { font-family: "Segoe UI", sans-serif; font-weight: 300; font-size: 62px; line-height: 1.02; letter-spacing: -.02em; margin: 0 auto 20px; max-width: 20ch; }
+  .tw-footer-bar { display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
+  .tw-copy { margin-left: auto; }
+
+  @media (max-width: 1100px) {
+    .tw-howto { grid-template-columns: 280px minmax(0, 1fr); gap: 48px; }
+    .tw-howto .tw-phone { width: min(260px, 100%) !important; }
+    .tw-themes { grid-template-columns: minmax(0, 1fr) 300px; gap: 40px; }
+    .tw-themes .tw-phone { width: min(280px, 100%) !important; }
+    .tw-faq-grid { grid-template-columns: 240px minmax(0, 1fr); gap: 40px; }
+    .tw-split { gap: 40px; }
+  }
+
+  @media (max-width: 900px) {
+    .tw-wrap { padding: 0 22px; }
+    .tw-h2 { font-size: 38px !important; }
+    .tw-h3-display { font-size: 32px !important; }
+    .tw-hero-sec { padding: 48px 0 0; }
+    .tw-sec { padding: 72px 0; }
+    .tw-cta { padding: 72px 0; }
+    .tw-hero, .tw-split, .tw-themes, .tw-faq-grid { grid-template-columns: 1fr; gap: 36px; }
+    .tw-howto {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .tw-howto-phone {
+      position: sticky;
+      top: 70px;
+      z-index: 6;
+      background: color-mix(in srgb, var(--color-bg) 92%, transparent);
+      backdrop-filter: blur(12px);
+      padding: 8px 0 12px;
+      border-bottom: 1px solid var(--color-divider);
+    }
+    .tw-howto-phone .tw-sticky { position: relative; top: auto; }
+    .tw-howto-phone p { display: none; }
+    .tw-howto .tw-phone { width: min(168px, 44vw) !important; margin-left: auto; margin-right: auto; }
+    .tw-howto-steps .tw-step { min-height: 72vh !important; }
+    .tw-split.tw-split-first { margin-top: 48px; }
+    .tw-split { margin-top: 64px; }
+    .tw-cols-3 { grid-template-columns: 1fr 1fr; gap: 28px; }
+    .tw-cols-4, .tw-audience { grid-template-columns: 1fr 1fr; }
+    .tw-media-first { order: 0; }
+    .tw-header-bar { gap: 12px; }
+    .tw-menu-btn { display: inline-flex; }
+    .tw-header-bar > .btn { margin-left: auto; }
+    .tw-nav {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      margin: 0;
+      flex-direction: column;
+      gap: 0;
+      padding: 8px 22px 16px;
+      background: color-mix(in srgb, var(--color-bg) 96%, transparent);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--color-divider);
+      z-index: 41;
+    }
+    header.is-open .tw-nav { display: flex; }
+    .tw-nav a { padding: 14px 0; border-bottom: 1px solid var(--color-divider); text-decoration: none; color: color-mix(in srgb, var(--color-text) 78%, transparent); }
+    .tw-h3-display { font-size: 32px; }
+    .tw-cta-h2 { font-size: 44px; }
+    .tw-themes .tw-phone { width: min(280px, 100%) !important; margin-left: auto; margin-right: auto; }
+    .tw-phone-col .tw-phone, .tw-hero .tw-phone { width: min(300px, 100%) !important; }
+    .tw-phones-pair .tw-phone { margin-top: 0 !important; }
+  }
+
+  @media (max-width: 640px) {
+    .tw-wrap { padding: 0 18px; }
+    .tw-h2 { font-size: 30px !important; }
+    .tw-h3-display { font-size: 28px !important; }
+    .tw-sec { padding: 52px 0; }
+    .tw-cta { padding: 56px 0; }
+    .tw-cols-3, .tw-cols-4, .tw-audience, .tw-compare { grid-template-columns: 1fr; }
+    .tw-hero-stats { flex-wrap: wrap; gap: 18px 28px; }
+    .tw-just { text-align: start; }
+    .tw-cta-h2 { font-size: 34px; }
+    .tw-h3-display { font-size: 28px; }
+    .tw-faq summary { font-size: 20px; }
+    .tw-footer-bar { gap: 10px 16px; }
+    .tw-copy { margin-left: 0; }
+    .tw-nav { padding-left: 18px; padding-right: 18px; }
+  }
+</style></helmet>
+
+<div style="background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); overflow-x: clip">
+
+  <header style="position: sticky; top: 0; z-index: 40; background: color-mix(in srgb, var(--color-bg) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--color-divider)">
+    <div class="tw-wrap tw-header-bar">
+      <a href="#top" style="display: flex; align-items: center; gap: 11px; text-decoration: none; color: var(--color-text); flex: none">
+        <span style="width: 30px; height: 30px; border-radius: 50%; background: #16241a; border: 1px solid var(--color-accent); display: grid; place-items: center; font-family: 'Segoe UI', sans-serif; font-size: 17px; color: #e0b23c">T</span>
+        <span style="font-family: 'Segoe UI', sans-serif; font-size: 22px; letter-spacing: .01em">Tiwani</span>
+      </a>
+      <nav class="tw-nav">
+        <a href="#capabilities" style="text-decoration: none; color: color-mix(in srgb, var(--color-text) 72%, transparent)">Capabilities</a>
+        <a href="#howto" style="text-decoration: none; color: color-mix(in srgb, var(--color-text) 72%, transparent)">How to use</a>
+        <a href="#themes" style="text-decoration: none; color: color-mix(in srgb, var(--color-text) 72%, transparent)">Themes</a>
+        <a href="#faq" style="text-decoration: none; color: color-mix(in srgb, var(--color-text) 72%, transparent)">FAQ</a>
+      </nav>
+      <a class="btn btn-primary" href="#demo" style="flex: none">Book a demo</a>
+      <button type="button" class="tw-menu-btn" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <section id="top" class="tw-hero-sec">
+    <div class="tw-wrap tw-hero">
+      <div>
+        <p class="tw-kick" style="color: #000000">Member management · clubs · societies · associations</p>
+        <h1 class="tw-h1" style="color: #C39635">Every member, every due, every vote in one register.</h1>
+        <p class="tw-lead tw-just" style="margin: 0 0 34px">Tiwani replaces the group chat, the spreadsheet and the shoebox of receipts. Keep the directory current, collect dues without chasing, put decisions to a vote, and let the association see exactly where it stands.</p>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 30px">
+        <a class="btn btn-blue" href="#demo" style="padding: 13px 26px; font-size: 15px">Book a demo</a>
+          <a class="btn btn-red" href="#howto" style="padding: 13px 26px; font-size: 15px">See how it works</a>
+        </div>
+        <div class="tw-hero-stats">
+          <div><div style="font-family: 'Segoe UI', sans-serif; font-size: 32px; line-height: 1; color: #b1b0b0">5 min</div><div style="font-size: 12px; color: color-mix(in srgb, var(--color-text) 58%, transparent)">to set up a chapter</div></div>
+          <div><div style="font-family: 'Segoe UI', sans-serif; font-size: 32px; line-height: 1; color: #b1b0b0">8</div><div style="font-size: 12px; color: color-mix(in srgb, var(--color-text) 58%, transparent)">appearance themes</div></div>
+          <div><div style="font-family: 'Segoe UI', sans-serif; font-size: 32px; line-height: 1; color: #b1b0b0">iOS + Android</div><div style="font-size: 12px; color: color-mix(in srgb, var(--color-text) 58%, transparent)">one shared register</div></div>
+        </div>
+      </div>
+      <div class="tw-phone-col" style="padding-bottom: 40px">
+        <div class="tw-phone" style="width: 330px"><div><img src="shots/home-dark.png" alt="Tiwani home screen"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tw-sec" style="padding-top: 92px">
+    <div class="tw-wrap">
+      <p class="tw-kick">Getting in</p>
+      <h2 class="tw-h2" style="max-width: 22ch">Three screens between a new member and the register.</h2>
+      <div class="tw-cols-3" style="margin-top: 56px">
+        <div>
+          <div class="tw-phone" style="width: 100%; max-width: 300px; margin: 0 auto 24px"><div><img src="shots/splash-dark.png" alt="Tiwani splash screen"></div></div>
+          <div style="border-top: 1px solid var(--color-divider); padding-top: 14px">
+            <span class="tw-num" style="color: #000000">01</span>
+            <h4 style="font-size: 22px; font-weight: 400; margin: 8px 0 8px; color: #3a654d">Open the app</h4>
+            <p class="tw-just" style="font-size: 14px; margin: 0; color: color-mix(in srgb, var(--color-text) 68%, transparent)">One mark, one line — <em>your community, together.</em> Get Started is the only thing asked of a first-time member.</p>
+          </div>
+        </div>
+        <div>
+          <div class="tw-phone" style="width: 100%; max-width: 300px; margin: 0 auto 24px"><div><img src="shots/signin-dark.png" alt="Sign in screen"></div></div>
+          <div style="border-top: 1px solid var(--color-divider); padding-top: 14px">
+            <span class="tw-num" style="color: #000000">02</span>
+            <h4 style="font-size: 22px; font-weight: 400; margin: 8px 0 8px; color: #3a654d">Sign in, or ask to join</h4>
+            <p class="tw-just" style="font-size: 14px; margin: 0; color: color-mix(in srgb, var(--color-text) 68%, transparent)">Members sign in with an email and password. Anyone else taps <em>Request to Join</em> — the request lands in the admins' queue for review.</p>
+          </div>
+        </div>
+        <div>
+          <div class="tw-phone" style="width: 100%; max-width: 300px; margin: 0 auto 24px"><div><img src="shots/events-dark.png" alt="Events screen with an upcoming meeting"></div></div>
+          <div style="border-top: 1px solid var(--color-divider); padding-top: 14px">
+            <span class="tw-num" style="color: #000000">03</span>
+            <h4 style="font-size: 22px; font-weight: 400; margin: 8px 0 8px; color: #3a654d">Land on what is next</h4>
+            <p class="tw-just" style="font-size: 14px; margin: 0; color: color-mix(in srgb, var(--color-text) 68%, transparent)">The week strip marks the days that carry something. Here: the annual meeting on Friday the 28th, with 30 places still open.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="capabilities" class="tw-sec">
+    <div class="tw-wrap">
+      <p class="tw-kick" style="color: #000000">What it does</p>
+      <h2 class="tw-h2" style="max-width: 20ch">Three jobs, done properly.</h2>
+      <div class="tw-cols-3 tw-tight" style="margin-top: 54px">
+        <div style="padding-top: 22px; border-top: 2px solid #3a654d">
+          <i data-lucide="users" style="width: 22px; height: 22px; color: #C39635"></i>
+          <h3 style="font-size: 27px; font-weight: 400; margin: 16px 0 10px; color: #3a654d">Member directory</h3>
+          <p class="tw-just" style="font-size: 15px; color: color-mix(in srgb, var(--color-text) 72%, transparent); margin: 0">Profiles, roles and contact details in one searchable register — filter by active, pending, owing or overdue and see a member's whole standing at a glance.</p>
+        </div>
+        <div style="padding-top: 22px; border-top: 2px solid #3a654d">
+          <i data-lucide="calendar-days" style="width: 22px; height: 22px; color: #C39635"></i>
+          <h3 style="font-size: 27px; font-weight: 400; margin: 16px 0 10px; color: #3a654d">Events &amp; RSVPs</h3>
+          <p class="tw-just" style="font-size: 15px; color: color-mix(in srgb, var(--color-text) 72%, transparent); margin: 0">Create a meeting or picnic, invite the roll, and watch attendance come in. Month and week views keep the calendar honest — effortlessly.</p>
+        </div>
+        <div style="padding-top: 22px; border-top: 2px solid #3a654d">
+          <i data-lucide="scale" style="width: 22px; height: 22px; color: #C39635"></i>
+          <h3 style="font-size: 27px; font-weight: 400; margin: 16px 0 10px; color: #3a654d">Dues, voting &amp; updates</h3>
+          <p class="tw-just" style="font-size: 15px; color: color-mix(in srgb, var(--color-text) 72%, transparent); margin: 0">Charge dues, levies, fines and pledges; run contribution pools; put motions to a poll; and broadcast the outcome to everyone at once.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tw-sec" style="padding-top: 96px">
+    <div class="tw-wrap">
+      <p class="tw-kick" style="color: #000000">A closer look</p>
+      <h2 class="tw-h2" style="max-width: 30ch">The tabs your officers will live in.</h2>
+
+      <div class="tw-split tw-split-first">
+        <div>
+          <span class="tw-num" style="color: #C39635">01 — Home</span>
+          <h3 class="tw-h3-display" style="color: #3a654d">The state of the association, on open.</h3>
+          <p class="tw-just" style="color: color-mix(in srgb, var(--color-text) 72%, transparent); max-width: 44ch">Four figures answer the questions a secretary is always asked: how many of us are there, what is coming up, how much has been collected, and who is behind. Quick actions sit underneath so the common jobs are one tap deep.</p>
+          <ul style="list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 10px; font-size: 14.5px">
+            <li style="border-top: 1px solid var(--color-divider); padding-top: 10px">Members · Events · Collected · Overdue at a glance</li>
+            <li style="border-top: 1px solid var(--color-divider); padding-top: 10px">Quick actions: add member, new event, new poll, record pay</li>
+            <li style="border-top: 1px solid var(--color-divider); padding-top: 10px">Library and document upload for the constitution and minutes</li>
+          </ul>
+        </div>
+        <div class="tw-phone-col"><div class="tw-phone" style="width: 306px"><div><img src="shots/home-light.png" alt="Home dashboard"></div></div></div>
+      </div>
+
+      <div class="tw-split">
+        <div class="tw-phone-col tw-media-first"><div class="tw-phone" style="width: 306px"><div><img src="shots/members.png" alt="Member directory"></div></div></div>
+        <div>
+          <span class="tw-num" style="color: #C39635">02 — Members</span>
+          <h3 class="tw-h3-display" style="color: #3a654d">A register that keeps itself tidy.</h3>
+          <p class="tw-just" style="color: color-mix(in srgb, var(--color-text) 72%, transparent); max-width: 44ch">Search by name, email or phone. Filter the roll by membership state or by money owed. Every member carries their role, their status and their balance, so nobody has to cross-reference a spreadsheet before a meeting.</p>
+          <ul style="list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 10px; font-size: 14.5px">
+            <li style="border-top: 1px solid var(--color-divider); padding-top: 10px">Filters: all, active, pending, inactive, suspended, paid, owing, overdue</li>
+            <li style="border-top: 1px solid var(--color-divider); padding-top: 10px">Roles and permissions — admins, executives, ordinary members</li>
+            <li style="border-top: 1px solid var(--color-divider); padding-top: 10px">Invite by link; members complete their own profile</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tw-split">
+        <div>
+          <span class="tw-num" style="color: #C39635">03 — Finance</span>
+          <h3 class="tw-h3-display" style="color: #3a654d">Dues and pools, kept to the penny.</h3>
+          <p class="tw-just" style="color: color-mix(in srgb, var(--color-text) 72%, transparent); max-width: 44ch">Two ledgers: <em>dues</em> for what the association charges, <em>contributions</em> for what it pools. Charge dues, levies, donations, fines, pledges or anything else; record payments as they arrive; tap any figure to break it down by member or charge type.</p>
+          <ul style="list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 10px; font-size: 14.5px">
+            <li style="border-top: 1px solid var(--color-divider); padding-top: 10px">Outstanding, charged and collected — always reconciled</li>
+            <li style="border-top: 1px solid var(--color-divider); padding-top: 10px">Contribution pools with expected amounts and withdraw requests</li>
+            <li style="border-top: 1px solid var(--color-divider); padding-top: 10px">My Ledger: every member sees their own statement</li>
+          </ul>
+        </div>
+        <div class="tw-phone-col"><div class="tw-phone" style="width: 306px"><div><img src="shots/finance-light.png" alt="Finance contributions"></div></div></div>
+      </div>
+
+      <div class="tw-split">
+        <div class="tw-phone-col tw-media-first"><div class="tw-phone" style="width: 306px"><div><img src="shots/poll.png" alt="Poll with options"></div></div></div>
+        <div>
+          <span class="tw-num" style="color: #C39635">04 — Vote</span>
+          <h3 class="tw-h3-display" style="color: #3a654d">Decisions on the record, not in the chat.</h3>
+          <p class="tw-just" style="color: color-mix(in srgb, var(--color-text) 72%, transparent); max-width: 44ch">Put a motion, an election or a book club pick to the membership. Options can carry images, polls can close on a date, and the tally is visible to everyone — so the outcome is a record rather than an argument.</p>
+          <ul style="list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 10px; font-size: 14.5px">
+            <li style="border-top: 1px solid var(--color-divider); padding-top: 10px">Elections with races and a secret ballot, alongside ordinary polls</li>
+            <li style="border-top: 1px solid var(--color-divider); padding-top: 10px">Open and closed polls with expiry dates</li>
+            <li style="border-top: 1px solid var(--color-divider); padding-top: 10px">Live percentages per option</li>
+            <li style="border-top: 1px solid var(--color-divider); padding-top: 10px">One member, one vote — tied to the register</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tw-split">
+        <div>
+          <span class="tw-num" style="color: #C39635">05 — Events &amp; Market</span>
+          <h3 class="tw-h3-display" style="color: #3a654d">From the calendar to the door.</h3>
+          <p class="tw-just" style="color: color-mix(in srgb, var(--color-text) 72%, transparent); max-width: 44ch">An event carries its own page: published status, date, place, a note, the capacity and who is going. Members RSVP from that page — <em>0 going, 30 spots left</em> becomes <em>1 going, 29 spots left</em> — and on the day an admin checks attendees in by name. Market is the members' own notice board.</p>
+          <ul style="list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 10px; font-size: 14.5px">
+            <li style="border-top: 1px solid var(--color-divider); padding-top: 10px">Week strip, month view and an upcoming list</li>
+            <li style="border-top: 1px solid var(--color-divider); padding-top: 10px">RSVP, capacity and an attendee list drawn from the register</li>
+            <li style="border-top: 1px solid var(--color-divider); padding-top: 10px">Admin check-in at the door; edit or cancel with everyone notified</li>
+            <li style="border-top: 1px solid var(--color-divider); padding-top: 10px">Members see the same page with RSVP only — no edit, no cancel</li>
+            <li style="border-top: 1px solid var(--color-divider); padding-top: 10px">Member-to-member listings inside the association</li>
+          </ul>
+        </div>
+        <div class="tw-phones-pair">
+          <div class="tw-phone" style="flex: 1 1 190px; min-width: 0; max-width: 250px; margin-top: 34px"><div><img src="shots/event-going.png" alt="Event page with one attendee going"></div></div>
+          <div class="tw-phone" style="flex: 1 1 190px; min-width: 0; max-width: 250px"><div><img src="shots/checkin.png" alt="Event check-in screen"></div></div>
+        </div>
+      </div>
+
+      <div class="tw-split">
+        <div class="tw-phones-pair tw-media-first">
+          <div class="tw-phone" style="flex: 1 1 190px; min-width: 0; max-width: 250px"><div><img src="shots/library.png" alt="Association library"></div></div>
+          <div class="tw-phone" style="flex: 1 1 190px; min-width: 0; max-width: 250px; margin-top: 34px"><div><img src="shots/document.png" alt="Document view"></div></div>
+        </div>
+        <div>
+          <span class="tw-num" style="color: #C39635">06 — Library &amp; governance</span>
+          <h3 class="tw-h3-display" style="color: #3a654d">The constitution, the minutes, the paper trail.</h3>
+          <p class="tw-just" style="color: color-mix(in srgb, var(--color-text) 72%, transparent); max-width: 44ch">Upload the by-laws, the code of conduct, the finance reports and every set of minutes. Documents are filed under constitutional papers or minutes and reports, tagged, dated and searchable — published to members, or held back while a revision is in progress.</p>
+          <ul style="list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 10px; font-size: 14.5px">
+            <li style="border-top: 1px solid var(--color-divider); padding-top: 10px">Two shelves: constitutional documents, minutes &amp; reports</li>
+            <li style="border-top: 1px solid var(--color-divider); padding-top: 10px">Published or draft, with file type, size and date on the card</li>
+            <li style="border-top: 1px solid var(--color-divider); padding-top: 10px">Admin tools alongside: join requests, audit logs, deletion requests</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tw-split">
+        <div>
+          <span class="tw-num" style="color: #C39635">07 — Market</span>
+          <h3 class="tw-h3-display" style="color: #3a654d">A marketplace that stays inside the association.</h3>
+          <p class="tw-just" style="color: color-mix(in srgb, var(--color-text) 72%, transparent); max-width: 44ch">Members list what they are selling — photograph, condition, description, price — and the rest of the register browses it. Tiwani does not take the money or hold the goods; <em>Enquire</em> simply opens a text message or WhatsApp to the seller, so the deal is arranged between two members who already know each other.</p>
+          <ul style="list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 10px; font-size: 14.5px">
+            <li style="border-top: 1px solid var(--color-divider); padding-top: 10px">Listings by members and admins, with availability status</li>
+            <li style="border-top: 1px solid var(--color-divider); padding-top: 10px">Enquire by text message or WhatsApp — no in-app payments</li>
+            <li style="border-top: 1px solid var(--color-divider); padding-top: 10px">Marketplace rules published under Settings</li>
+          </ul>
+        </div>
+        <div class="tw-phones-pair">
+          <div class="tw-phone" style="flex: 1 1 190px; min-width: 0; max-width: 250px"><div><img src="shots/market-browse.png" alt="Marketplace listing"></div></div>
+          <div class="tw-phone" style="flex: 1 1 190px; min-width: 0; max-width: 250px; margin-top: 34px"><div><img src="shots/market-enquire.png" alt="Contact the seller"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tw-sec">
+    <div class="tw-wrap">
+      <p class="tw-kick" style="color: #000000">Permissions</p>
+      <h2 class="tw-h2" style="max-width: 26ch; color: #3a654d">One register, two views.</h2>
+      <p class="tw-lead" style="margin-bottom: 18px">Everything above is the officers' view. A member without admin rights opens the same app and sees their own standing instead of everyone's — the same figures, scoped to them.</p>
+      <div class="tw-compare">
+        <div style="background: var(--color-bg); padding: 26px 28px">
+          <h4 style="font-size: 13px; letter-spacing: .08em; text-transform: uppercase; font-weight: 400; color: var(--color-accent-700); margin: 0 0 14px; color: #C39635">Admin sees</h4>
+          <ul style="list-style: none; padding: 0; margin: 0; display: grid; gap: 9px; font-size: 14.5px">
+            <li>The whole ledger — charged, collected, outstanding across the roll</li>
+            <li>Every member's balance and status; record payments single or bulk</li>
+            <li>Create events, edit, cancel, check attendees in</li>
+            <li>Open polls and elections; approve join and deletion requests</li>
+          </ul>
+        </div>
+        <div style="background: var(--color-bg); padding: 26px 28px">
+          <h4 style="font-size: 13px; letter-spacing: .08em; text-transform: uppercase; font-weight: 400; color: var(--color-accent-700); margin: 0 0 14px; color: #C39635">A member sees</h4>
+          <ul style="list-style: none; padding: 0; margin: 0; display: grid; gap: 9px; font-size: 14.5px">
+            <li><em>My Finances</em> — their own dues, history and standing</li>
+            <li><em>My Contributions</em> — their pool balance, and a withdrawal request</li>
+            <li>Events they can RSVP to — no edit or cancel controls</li>
+            <li>Open elections and closed polls; the marketplace</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tw-cols-4">
+        <div>
+          <div class="tw-phone" style="width: 100%; margin-bottom: 18px"><div><img src="shots/my-dues.png" alt="My Finances — dues"></div></div>
+          <h4 style="font-size: 19px; font-weight: 400; margin: 0 0 6px; color: #3a654d">In good standing</h4>
+          <p style="font-size: 13.5px; margin: 0; color: color-mix(in srgb, var(--color-text) 68%, transparent)">Their outstanding balance and every payment they have made — nobody else's.</p>
+        </div>
+        <div>
+          <div class="tw-phone" style="width: 100%; margin-bottom: 18px"><div><img src="shots/my-contributions.png" alt="My Contributions"></div></div>
+          <h4 style="font-size: 19px; font-weight: 400; margin: 0 0 6px; color: #3a654d">Their share of the pool</h4>
+          <p style="font-size: 13.5px; margin: 0; color: color-mix(in srgb, var(--color-text) 68%, transparent)">What they put in, what is available, and the history behind it.</p>
+        </div>
+        <div>
+          <div class="tw-phone" style="width: 100%; margin-bottom: 18px"><div><img src="shots/request-withdrawal.png" alt="Request withdrawal"></div></div>
+          <h4 style="font-size: 19px; font-weight: 400; margin: 0 0 6px; color: #3a654d">Asking, not taking</h4>
+          <p style="font-size: 13.5px; margin: 0; color: color-mix(in srgb, var(--color-text) 68%, transparent)">A withdrawal is a request with an amount and a reason — the executives approve it.</p>
+        </div>
+        <div>
+          <div class="tw-phone" style="width: 100%; margin-bottom: 18px"><div><img src="shots/vote-polls.png" alt="Vote and polls"></div></div>
+          <h4 style="font-size: 19px; font-weight: 400; margin: 0 0 6px; color: #3a654d">Elections and polls</h4>
+          <p style="font-size: 13.5px; margin: 0; color: color-mix(in srgb, var(--color-text) 68%, transparent)">Open ballots to cast, closed ones to read — secret where the office requires it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="howto" class="tw-sec">
+    <div class="tw-wrap">
+      <p class="tw-kick" style="color: #000000">How to use Tiwani</p>
+      <h2 class="tw-h2" style="max-width: 26ch; color: #3a654d">Nine steps from an empty chapter to a running association.</h2>
+      <div class="tw-howto">
+        <div class="tw-howto-phone"><div class="tw-sticky">
+          <div class="tw-phone" style="width: 320px">
+            <div style="aspect-ratio: 752 / 1629">
+              <img id="tw-hp-0" src="shots/signin-light.png" alt="Step 1" style="position: absolute; inset: 0; height: 100%; object-fit: cover; object-position: top; transition: opacity .5s">
+              <img id="tw-hp-1" src="shots/members.png" alt="Step 2" style="position: absolute; inset: 0; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity .5s">
+              <img id="tw-hp-2" src="shots/finance-dark.png" alt="Step 3" style="position: absolute; inset: 0; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity .5s">
+              <img id="tw-hp-3" src="shots/events-light.png" alt="Step 4" style="position: absolute; inset: 0; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity .5s">
+              <img id="tw-hp-4" src="shots/event-detail.png" alt="Step 5" style="position: absolute; inset: 0; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity .5s">
+              <img id="tw-hp-5" src="shots/checkin.png" alt="Step 6" style="position: absolute; inset: 0; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity .5s">
+              <img id="tw-hp-6" src="shots/poll.png" alt="Step 7" style="position: absolute; inset: 0; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity .5s">
+              <img id="tw-hp-7" src="shots/record-payment.png" alt="Step 8" style="position: absolute; inset: 0; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity .5s">
+              <img id="tw-hp-8" src="shots/library.png" alt="Step 9" style="position: absolute; inset: 0; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity .5s">
+            </div>
+          </div>
+          <p style="font-size: 12px; color: color-mix(in srgb, var(--color-text) 55%, transparent); margin: 18px 0 0; text-align: center">Scroll — the screen follows the step.</p>
+        </div></div>
+        <div class="tw-howto-steps">
+          <div class="tw-step" data-tw-step="0" data-on="1" style="min-height: 58vh; display: flex; flex-direction: column; justify-content: center;">
+            <span class="tw-num" style="color: #C39635">Step one</span>
+          <h3 class="tw-h3-display" style="font-size: 36px; margin: 10px 0 14px; color: #3a654d">Sign in and name the association</h3>
+            <p class="tw-just" style="color: color-mix(in srgb, var(--color-text) 72%, transparent); max-width: 46ch">Get Started, then sign in — or send <em>Request to Join</em> if the register already exists and an admin should let you in. Set the currency, the timezone and who holds admin, and the home dashboard is ready to fill.</p>
+          </div>
+          <div class="tw-step" data-tw-step="1" style="min-height: 58vh; display: flex; flex-direction: column; justify-content: center">
+            <span class="tw-num" style="color: #C39635">Step two</span>
+          <h3 class="tw-h3-display" style="font-size: 36px; margin: 10px 0 14px; color: #3a654d">Add or invite your members</h3>
+            <p class="tw-just" style="color: color-mix(in srgb, var(--color-text) 72%, transparent); max-width: 46ch">Tap the person-plus icon on Members to add someone by hand, or send an invite link and let them complete their own profile. Assign roles as you go — admins can charge and record, members can view and vote.</p>
+          </div>
+          <div class="tw-step" data-tw-step="2" style="min-height: 58vh; display: flex; flex-direction: column; justify-content: center">
+            <span class="tw-num" style="color: #C39635">Step three</span>
+          <h3 class="tw-h3-display" style="font-size: 36px; margin: 10px 0 14px; color: #3a654d">Set dues and open a pool</h3>
+            <p class="tw-just" style="color: color-mix(in srgb, var(--color-text) 72%, transparent); max-width: 46ch">On Finance, choose <em>New Dues</em> and pick the charge type — dues, levies, donations, fines, pledges. For a project, open a contribution pool with an expected amount per member. Both ledgers update the moment money lands.</p>
+          </div>
+          <div class="tw-step" data-tw-step="3" style="min-height: 58vh; display: flex; flex-direction: column; justify-content: center">
+            <span class="tw-num" style="color: #C39635">Step four</span>
+          <h3 class="tw-h3-display" style="font-size: 36px; margin: 10px 0 14px; color: #3a654d">Schedule an event and invite the roll</h3>
+            <p class="tw-just" style="color: color-mix(in srgb, var(--color-text) 72%, transparent); max-width: 46ch">Press plus on Events, set the date and any attendance fee, then invite the whole register or a subset. RSVPs come back against member names, and the fee appears on each invitee's ledger.</p>
+          </div>
+          <div class="tw-step" data-tw-step="4" style="min-height: 58vh; display: flex; flex-direction: column; justify-content: center">
+            <span class="tw-num" style="color: #C39635">Step five</span>
+          <h3 class="tw-h3-display" style="font-size: 36px; margin: 10px 0 14px; color: #3a654d">Publish it and collect RSVPs</h3>
+            <p class="tw-just" style="color: color-mix(in srgb, var(--color-text) 72%, transparent); max-width: 46ch">Once published, the event page shows the date, the place, the note and the capacity — <em>0 going, 30 spots left</em>. Members tap <em>RSVP to This Event</em> and their name joins the attendee list; you can edit or cancel from the same page.</p>
+          </div>
+          <div class="tw-step" data-tw-step="5" style="min-height: 58vh; display: flex; flex-direction: column; justify-content: center">
+            <span class="tw-num" style="color: #C39635">Step six</span>
+          <h3 class="tw-h3-display" style="font-size: 36px; margin: 10px 0 14px; color: #3a654d">Check members in at the door</h3>
+            <p class="tw-just" style="color: color-mix(in srgb, var(--color-text) 72%, transparent); max-width: 46ch">On the day, open Event Check-In. Every RSVP is listed with a single <em>Check In</em> button, and the header keeps the count honest — one RSVP, none checked in, until people start arriving.</p>
+          </div>
+          <div class="tw-step" data-tw-step="6" style="min-height: 58vh; display: flex; flex-direction: column; justify-content: center">
+            <span class="tw-num" style="color: #C39635">Step seven</span>
+          <h3 class="tw-h3-display" style="font-size: 36px; margin: 10px 0 14px; color: #3a654d">Put the motion to a vote</h3>
+            <p class="tw-just" style="color: color-mix(in srgb, var(--color-text) 72%, transparent); max-width: 46ch">New Poll from the home screen: a question, the options, and a closing date. Members vote once each; percentages update live; the closed poll stays on file as the minute of the decision.</p>
+          </div>
+          <div class="tw-step" data-tw-step="7" style="min-height: 58vh; display: flex; flex-direction: column; justify-content: center">
+            <span class="tw-num" style="color: #C39635">Step eight</span>
+          <h3 class="tw-h3-display" style="font-size: 36px; margin: 10px 0 14px; color: #3a654d">Record payments, single or bulk</h3>
+            <p class="tw-just" style="color: color-mix(in srgb, var(--color-text) 72%, transparent); max-width: 46ch">Record Payment takes one member or a whole batch. Filter to paid, unpaid or overdue, tick the members who have settled, and every outstanding figure on the dashboard moves with them.</p>
+          </div>
+          <div class="tw-step" data-tw-step="8" style="min-height: 58vh; display: flex; flex-direction: column; justify-content: center">
+            <span class="tw-num" style="color: #C39635">Step nine</span>
+          <h3 class="tw-h3-display" style="font-size: 36px; margin: 10px 0 14px; color: #3a654d">File the minutes in the Library</h3>
+            <p class="tw-just" style="color: color-mix(in srgb, var(--color-text) 72%, transparent); max-width: 46ch">Upload the minutes and the finance report, tag them, publish them. Members read the papers from their phones instead of asking for them — and the constitution stops living in one officer's inbox.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="themes" class="tw-sec">
+    <div class="tw-wrap">
+      <p class="tw-kick" style="color: #000000">Appearance</p>
+      <h2 class="tw-h2" style="max-width: 24ch; color: #3a654d">Eight themes. Pick the one your chapter looks best in.</h2>
+      <p class="tw-lead" style="margin-bottom: 52px">Every member chooses their own appearance under Settings — the register stays the same, the room changes. Try them here.</p>
+      <div class="tw-themes">
+        <div id="tw-theme-list">
+          <button class="tw-theme-opt" data-tw-theme="0" data-on="1"><span class="tw-sw" style="background: #0d1410"><span style="background: #e0b23c"></span></span>Deep Forest Dark<i class="tw-chk" data-lucide="check" style="width: 17px; height: 17px"></i></button>
+          <button class="tw-theme-opt" data-tw-theme="1"><span class="tw-sw" style="background: #f1f7f2"><span style="background: #1f7a3d"></span></span>Forest Green Light<i class="tw-chk" data-lucide="check" style="width: 17px; height: 17px"></i></button>
+          <button class="tw-theme-opt" data-tw-theme="2"><span class="tw-sw" style="background: #eef4fc"><span style="background: #3b82f6"></span></span>Sky Blue<i class="tw-chk" data-lucide="check" style="width: 17px; height: 17px"></i></button>
+          <button class="tw-theme-opt" data-tw-theme="3"><span class="tw-sw" style="background: #2b4a86"><span style="background: #e8c15a"></span></span>Royal Sapphire<i class="tw-chk" data-lucide="check" style="width: 17px; height: 17px"></i></button>
+          <button class="tw-theme-opt" data-tw-theme="4"><span class="tw-sw" style="background: #f7f0e4"><span style="background: #8a6a3f"></span></span>Givry<i class="tw-chk" data-lucide="check" style="width: 17px; height: 17px"></i></button>
+          <button class="tw-theme-opt" data-tw-theme="5"><span class="tw-sw" style="background: #1e2124"><span style="background: #d2a63c"></span></span>Graphite Grey<i class="tw-chk" data-lucide="check" style="width: 17px; height: 17px"></i></button>
+          <button class="tw-theme-opt" data-tw-theme="6"><span class="tw-sw" style="background: #ffffff"><span style="background: #111111"></span></span>Pure White Minimal<i class="tw-chk" data-lucide="check" style="width: 17px; height: 17px"></i></button>
+          <button class="tw-theme-opt" data-tw-theme="7"><span class="tw-sw" style="background: #000000"><span style="background: #ffffff"></span></span>Pure Black Minimal<i class="tw-chk" data-lucide="check" style="width: 17px; height: 17px"></i></button>
+          <p style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent); margin: 26px 0 0">Settings → Appearance. The choice is per member, per device — an executive on Deep Forest Dark and a member on Pure White Minimal are reading the same ledger.</p>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 20px">
+          <div class="tw-phone" style="width: 320px">
+            <div style="aspect-ratio: 752 / 1629">
+              <img id="tw-tp-0" src="shots/theme-forest-dark.png" alt="Deep Forest Dark" style="position: absolute; inset: 0; height: 100%; object-fit: cover; object-position: top; transition: opacity .4s">
+              <img id="tw-tp-1" src="shots/theme-forest-light.png" alt="Forest Green Light" style="position: absolute; inset: 0; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity .4s">
+              <img id="tw-tp-2" src="shots/theme-sky-blue.png" alt="Sky Blue" style="position: absolute; inset: 0; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity .4s">
+              <img id="tw-tp-3" src="shots/theme-sapphire.png" alt="Royal Sapphire" style="position: absolute; inset: 0; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity .4s">
+              <img id="tw-tp-4" src="shots/theme-givry.png" alt="Givry" style="position: absolute; inset: 0; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity .4s">
+              <img id="tw-tp-5" src="shots/theme-graphite.png" alt="Graphite Grey" style="position: absolute; inset: 0; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity .4s">
+              <img id="tw-tp-6" src="shots/finance-light.png" alt="Pure White Minimal" style="position: absolute; inset: 0; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity .4s">
+              <img id="tw-tp-7" src="shots/finance-dark.png" alt="Pure Black Minimal" style="position: absolute; inset: 0; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity .4s">
+            </div>
+          </div>
+          <span id="tw-theme-label" style="font-family: 'Segoe UI', sans-serif; font-size: 20px; color: color-mix(in srgb, var(--color-text) 70%, transparent)">Deep Forest Dark</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tw-sec">
+    <div class="tw-wrap">
+      <p class="tw-kick" style="color: #000000">Who it is for</p>
+          <div class="tw-step" data-tw-step="0" data-on="1" style="min-height: 58vh; display: flex; flex-direction: column; justify-content: center; color: #3a654d">
+            <h2 class="tw-h2" style="max-width: 22ch; color: #3a654d">Any body of people that keeps a register.</h2>
+      <div class="tw-audience">
+        <div style="background: var(--color-bg); padding: 30px 26px"><h4 style="font-size: 21px; font-weight: 400; margin: 0 0 8px">Alumni associations</h4><p style="font-size: 14px; margin: 0; color: color-mix(in srgb, var(--color-text) 68%, transparent)">Set-year cohorts, annual dues, reunion events and a scholarship pool.</p></div>
+        <div style="background: var(--color-bg); padding: 30px 26px"><h4 style="font-size: 21px; font-weight: 400; margin: 0 0 8px">Town &amp; family unions</h4><p style="font-size: 14px; margin: 0; color: color-mix(in srgb, var(--color-text) 68%, transparent)">Levies, projects at home, and a diaspora spread across timezones.</p></div>
+        <div style="background: var(--color-bg); padding: 30px 26px"><h4 style="font-size: 21px; font-weight: 400; margin: 0 0 8px">Professional societies</h4><p style="font-size: 14px; margin: 0; color: color-mix(in srgb, var(--color-text) 68%, transparent)">Membership grades, subscriptions, elections and CPD meetings.</p></div>
+        <div style="background: var(--color-bg); padding: 30px 26px"><h4 style="font-size: 21px; font-weight: 400; margin: 0 0 8px">Faith &amp; welfare groups</h4><p style="font-size: 14px; margin: 0; color: color-mix(in srgb, var(--color-text) 68%, transparent)">Pledges, donations, welfare disbursements and a clear audit trail.</p></div>
+        <div style="background: var(--color-bg); padding: 30px 26px"><h4 style="font-size: 21px; font-weight: 400; margin: 0 0 8px">Sports &amp; social clubs</h4><p style="font-size: 14px; margin: 0; color: color-mix(in srgb, var(--color-text) 68%, transparent)">Subs, fixtures, fines and the members' market board.</p></div>
+        <div style="background: var(--color-bg); padding: 30px 26px"><h4 style="font-size: 21px; font-weight: 400; margin: 0 0 8px">Co-operatives &amp; savings clubs</h4><p style="font-size: 14px; margin: 0; color: color-mix(in srgb, var(--color-text) 68%, transparent)">Contribution pools, withdraw requests and per-member statements.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tw-sec">
+    <div class="tw-wrap">
+      <p class="tw-kick" style="color: #000000">Screens</p>
+      <h2 class="tw-h2" style="margin-bottom: 46px; color: #3a654d;">The app, unretouched.</h2>
+      <div class="tw-cols-4">
+        <figure><div class="tw-mat"><img src="shots/home-light.png" alt="Home"></div><figcaption>Home — the association at a glance</figcaption></figure>
+        <figure><div class="tw-mat"><img src="shots/members.png" alt="Members"></div><figcaption>Members — filter by status or balance</figcaption></figure>
+        <figure><div class="tw-mat"><img src="shots/finance-dark.png" alt="Dues ledger"></div><figcaption>Finance — the dues ledger</figcaption></figure>
+        <figure><div class="tw-mat"><img src="shots/dues-detail.png" alt="Member dues breakdown"></div><figcaption>A member's charges, line by line</figcaption></figure>
+        <figure><div class="tw-mat"><img src="shots/finance-light.png" alt="Contribution pools"></div><figcaption>Contribution pools and withdrawals</figcaption></figure>
+        <figure><div class="tw-mat"><img src="shots/poll.png" alt="Poll"></div><figcaption>Vote — a closed poll on file</figcaption></figure>
+        <figure><div class="tw-mat"><img src="shots/events.png" alt="Events"></div><figcaption>Events — week strip and month view</figcaption></figure>
+        <figure><div class="tw-mat"><img src="shots/theme-sapphire.png" alt="Settings"></div><figcaption>Settings — appearance, currency, timezone</figcaption></figure>
+        <figure><div class="tw-mat"><img src="shots/event-detail.png" alt="Event page"></div><figcaption>An event page before any RSVP</figcaption></figure>
+        <figure><div class="tw-mat"><img src="shots/checkin.png" alt="Event check-in"></div><figcaption>Check-in at the door</figcaption></figure>
+        <figure><div class="tw-mat"><img src="shots/library.png" alt="Library"></div><figcaption>Library — constitution and minutes</figcaption></figure>
+        <figure><div class="tw-mat"><img src="shots/document.png" alt="Document"></div><figcaption>A filed document, ready to open</figcaption></figure>
+        <figure><div class="tw-mat"><img src="shots/record-payment.png" alt="Record payment"></div><figcaption>Record Payment — single or bulk</figcaption></figure>
+        <figure><div class="tw-mat"><img src="shots/settings-admin.png" alt="Admin tools"></div><figcaption>Admin tools — requests and audit logs</figcaption></figure>
+        <figure><div class="tw-mat"><img src="shots/splash-light.png" alt="Splash screen"></div><figcaption>The mark</figcaption></figure>
+        <figure><div class="tw-mat"><img src="shots/signin-light.png" alt="Sign in"></div><figcaption>Sign in — or request to join</figcaption></figure>
+        <figure><div class="tw-mat"><img src="shots/my-dues.png" alt="My Finances"></div><figcaption>A member's own dues and history</figcaption></figure>
+        <figure><div class="tw-mat"><img src="shots/my-contributions.png" alt="My Contributions"></div><figcaption>My Contributions, with a withdrawal request</figcaption></figure>
+        <figure><div class="tw-mat"><img src="shots/vote-polls.png" alt="Vote and polls"></div><figcaption>Vote — an open election, seven closed polls</figcaption></figure>
+        <figure><div class="tw-mat"><img src="shots/market-browse.png" alt="Marketplace"></div><figcaption>Market — a listing from another member</figcaption></figure>
+        <figure><div class="tw-mat"><img src="shots/event-member.png" alt="Event, member view"></div><figcaption>The same event, seen by a member</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="tw-sec">
+    <div class="tw-wrap tw-faq-grid">
+      <div><p class="tw-kick" style="color: #000000">Questions</p><h2 class="tw-h2" style="font-size: 44px; color: #3a654d;">Before you ask.</h2></div>
+      <div>
+        <details class="tw-faq" open><summary>Do members need to pay online through the app?</summary><p>No. Tiwani is a register, not a payment processor by default — cash, bank transfer and card payments are all recorded against the member who made them, so the ledger reflects however your association actually collects.</p></details>
+        <details class="tw-faq"><summary>Can more than one person administer the register?</summary><p>Yes. Roles are set per member, so a chairman, secretary and treasurer can each hold admin rights while ordinary members keep view-and-vote access to their own ledger and the polls.</p></details>
+        <details class="tw-faq"><summary>What happens to members who never open the app?</summary><p>They stay on the register. An admin can add them by hand, record their payments, and mark their RSVPs — the figures stay correct whether or not every member installs anything.</p></details>
+        <details class="tw-faq"><summary>Which currency and timezone does it use?</summary><p>Both are set per association under Settings, so a union with members in Lagos and London keeps one currency on the books and each member sees events in their own time.</p></details>
+        <details class="tw-faq"><summary>Is there a web version for the executives?</summary><p>The register is shared, so anything recorded on a phone is immediately visible to every other officer. Talk to us about desktop access for reporting and end-of-year returns.</p></details>
+        <details class="tw-faq"><summary>How do we move off our spreadsheet?</summary><p>Bring the sheet to the demo. We will map your columns to member fields, charge types and outstanding balances, and load the opening figures so your first month in Tiwani reconciles with your last month out of it.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section id="demo" class="tw-cta">
+    <div class="tw-wrap" style="text-align: center">
+      <span style="width: 44px; height: 44px; border-radius: 50%; background: #16241a; border: 1px solid #c9a445; display: inline-grid; place-items: center; font-family: 'Segoe UI', sans-serif; font-size: 24px; color: #e0b23c; margin-bottom: 26px">T</span>
+      <h2 class="tw-cta-h2">Bring your register. We will do the rest.</h2>
+      <p style="max-width: 52ch; margin: 0 auto 34px; color: rgba(240, 243, 239, .72); font-size: 16.5px">A thirty-minute walkthrough with your own membership list, your own dues, your own calendar — so you can see the association in Tiwani before you commit to it.</p>
+      <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap">
+        <a class="btn" href="#demo" style="padding: 14px 30px; font-size: 15px; color: #e0b23c; border-color: #c9a445">Book a demo</a>
+        <a class="btn" href="#howto" style="padding: 14px 30px; font-size: 15px; color: rgba(240, 243, 239, .8); border-color: rgba(240, 243, 239, .28)">Read the steps again</a>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background: #0b110a; color: rgba(240, 243, 239, .6); padding: 40px 0; font-size: 12.5px">
+    <div class="tw-wrap tw-footer-bar">
+      <span style="font-family: 'Segoe UI', sans-serif; font-size: 17px; color: rgba(240, 243, 239, .9)">Tiwani</span>
+      <span>Member management for clubs, societies and associations.</span>
+      <span class="tw-copy">© 2026 Tiwani</span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultTheme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Deep Forest Dark&quot;,&quot;Forest Green Light&quot;,&quot;Sky Blue&quot;,&quot;Royal Sapphire&quot;,&quot;Givry&quot;,&quot;Graphite Grey&quot;,&quot;Pure White Minimal&quot;,&quot;Pure Black Minimal&quot;],&quot;default&quot;:&quot;Deep Forest Dark&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Appearance&quot;}}">
+class Component extends DCLogic {
+  componentDidMount() {
+    if (window.lucide) window.lucide.createIcons();
+    this.wireMenu();
+    this.wireSteps();
+    this.wireThemes();
+  }
+
+  wireMenu() {
+    const header = document.querySelector("header");
+    const btn = document.querySelector(".tw-menu-btn");
+    const nav = document.querySelector(".tw-nav");
+    if (!header || !btn || !nav) return;
+    const setOpen = (open) => {
+      header.classList.toggle("is-open", open);
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+      btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    };
+    btn.addEventListener("click", () => setOpen(!header.classList.contains("is-open")));
+    nav.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setOpen(false)));
+    this._closeMenu = () => setOpen(false);
+  }
+
+  wireSteps() {
+    const steps = Array.from(document.querySelectorAll("[data-tw-step]"));
+    if (!steps.length) return;
+    const show = (n) => {
+      steps.forEach((s) => s.setAttribute("data-on", s.dataset.twStep === String(n) ? "1" : "0"));
+      for (let i = 0; i < steps.length; i++) {
+        const img = document.getElementById("tw-hp-" + i);
+        if (img) img.style.opacity = i === n ? "1" : "0";
+      }
+    };
+    const mobile = window.matchMedia("(max-width: 900px)").matches;
+    const io = new IntersectionObserver((entries) => {
+      const vis = entries.filter((e) => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (vis) show(Number(vis.target.dataset.twStep));
+    }, {
+      rootMargin: mobile ? "-18% 0px -52% 0px" : "-42% 0px -42% 0px",
+      threshold: [0, 0.2, 0.6, 1]
+    });
+    steps.forEach((s) => io.observe(s));
+    this._io = io;
+  }
+
+  wireThemes() {
+    const names = ["Deep Forest Dark", "Forest Green Light", "Sky Blue", "Royal Sapphire", "Givry", "Graphite Grey", "Pure White Minimal", "Pure Black Minimal"];
+    const opts = Array.from(document.querySelectorAll("[data-tw-theme]"));
+    if (!opts.length) return;
+    const label = document.getElementById("tw-theme-label");
+    const pick = (n) => {
+      opts.forEach((o) => o.setAttribute("data-on", o.dataset.twTheme === String(n) ? "1" : "0"));
+      for (let i = 0; i < names.length; i++) {
+        const img = document.getElementById("tw-tp-" + i);
+        if (img) img.style.opacity = i === n ? "1" : "0";
+      }
+      if (label) label.textContent = names[n];
+    };
+    opts.forEach((o) => o.addEventListener("click", () => pick(Number(o.dataset.twTheme))));
+    const start = names.indexOf(this.props.defaultTheme || "Deep Forest Dark");
+    pick(start < 0 ? 0 : start);
+  }
+
+  componentWillUnmount() { if (this._io) this._io.disconnect(); }
+
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
